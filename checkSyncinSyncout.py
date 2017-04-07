@@ -20,7 +20,6 @@ def checkSyncinSyncout():
 	loggingFileHandler.setFormatter(loggingFormatter)
 	logger.addHandler(loggingFileHandler)
 
-
 	try:
 		
 		# Get target files last modification time
@@ -40,6 +39,8 @@ def checkSyncinSyncout():
 
 	except OSError:
 		logger.critical("Cannot find the specified file(s)")
+
+		# Return failed execution
 		return 1
 
 checkSyncinSyncout()
