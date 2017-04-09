@@ -21,10 +21,25 @@ def do_file_check(file_to_check, log_filename):
 	# Compare current with modification time
     file_age = (now - file_epoch) / 60
 
-	# Update the log file
-    logger.info(file_to_check + " last modified: " \
-	            + str(time.ctime(os.path.getmtime(file_to_check))) \
-				+ ", Age: " + str(file_age) + " minutes.")
+    # Update the log file
+    if file_age < 10:
+        # log level INFO
+        logger.info(file_to_check + " last modified: " \
+	                + str(time.ctime(os.path.getmtime(file_to_check))) \
+			    	+ ", Age: " + str(file_age) + " minutes.")
+    else:
+        if file_age <= 20:
+    		# log level WARNING
+            logger.warning(file_to_check + " last modified: " \
+	                + str(time.ctime(os.path.getmtime(file_to_check))) \
+			    	+ ", Age: " + str(file_age) + " minutes.")
+        else:
+    		# log level CRITICAL
+            logger.critical(file_to_check + " last modified: " \
+	                + str(time.ctime(os.path.getmtime(file_to_check))) \
+			    	+ ", Age: " + str(file_age) + " minutes.")
+
+	# release log handler
     logger.handlers.pop()
 	# Return successful execution
     return 0
